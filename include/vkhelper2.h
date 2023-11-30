@@ -163,13 +163,9 @@ typedef struct {
 	VkAttachmentReference depth_ref;
 	VkSubpassDescription subpass;
 } Vkhelper2RenderpassConfig;
-void vkhelper2_renderpass_config_offscreen(
-	Vkhelper2RenderpassConfig *conf,
-	VkDevice device
-);
+void vkhelper2_renderpass_config_offscreen(Vkhelper2RenderpassConfig *conf);
 void vkhelper2_renderpass_config(
 	Vkhelper2RenderpassConfig *conf,
-	VkDevice device,
 	VkFormat format,
 	VkFormat depth_format
 );

@@ -3,8 +3,8 @@
 #include "../include/vkhelper2.h"
 
 void vkhelper2_renderpass_config_offscreen(
-	Vkhelper2RenderpassConfig *conf,
-	VkDevice device) {
+	Vkhelper2RenderpassConfig *conf
+) {
 	VkAttachmentDescription attach_color = {
 		.format = VK_FORMAT_B8G8R8A8_UNORM,
 		.samples = VK_SAMPLE_COUNT_1_BIT,
@@ -38,7 +38,6 @@ void vkhelper2_renderpass_config_offscreen(
 
 void vkhelper2_renderpass_config(
 	Vkhelper2RenderpassConfig *conf,
-	VkDevice device,
 	VkFormat format,
 	VkFormat depth_format
 ) {
