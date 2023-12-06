@@ -52,8 +52,12 @@ void vkhelper2_image_new(
 	if (height < width) {
 		min = height;
 	}
+	output->mip = 1;
 	if (mip) {
-		output->mip = (uint32_t)floorf(log2f((float)min)) + 1;
+		while (min > 0) {
+			output->mip += 1;
+			min /= 2;
+		}
 	} else {
 		output->mip = 1;
 	}
