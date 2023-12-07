@@ -1,3 +1,2 @@
-dmgrect
 wholefile
 ppath

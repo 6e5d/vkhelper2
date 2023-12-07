@@ -54,6 +54,7 @@ void vkhelper2_image_new(
 	}
 	output->mip = 1;
 	if (mip) {
+		min /= 2; // first level is /2
 		while (min > 0) {
 			output->mip += 1;
 			min /= 2;

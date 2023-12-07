@@ -3,8 +3,6 @@
 
 #include <vulkan/vulkan.h>
 
-#include "../../dmgrect/include/dmgrect.h"
-
 typedef struct {
 	VkDeviceMemory memory;
 	VkImage image;
@@ -42,9 +40,6 @@ void vkhelper2_buffer_deinit(
 	Vkhelper2Buffer *buffer,
 	VkDevice device
 );
-
-void vkhelper2_copy_buffer_texture(VkCommandBuffer cbuf,
-	VkBuffer src, Vkhelper2Image *dst, Dmgrect *rect);
 
 typedef struct {
 	VkDescriptorSetLayoutBinding *bindings;
