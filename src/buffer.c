@@ -14,7 +14,8 @@ void vkhelper2_buffer_init_cpu(
 	VkBufferCreateInfo info = {
 		.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,
 		.size = size,
-		.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT, // staging
+		.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT |
+			VK_BUFFER_USAGE_TRANSFER_DST_BIT,
 	};
 	assert(0 == vkCreateBuffer(device, &info, NULL, &buffer->buffer));
 

@@ -26,3 +26,30 @@ void vkhelper2_barrier(VkCommandBuffer cbuf,
 		0, 0, NULL, 0, NULL, 1, &barrier);
 	image->layout = new_layout;
 }
+
+// transfer barrier
+static void vkhelper2_barrier_transfer(VkCommandBuffer cbuf,
+	VkImageLayout layout, Vkhelper2Image *img
+) {
+	vkhelper2_barrier(cbuf, layout,
+		VK_PIPELINE_STAGE_TRANSFER_BIT,
+		VK_PIPELINE_STAGE_TRANSFER_BIT,
+		img);
+}
+
+void vkhelper2_barrier_src(VkCommandBuffer cbuf, Vkhelper2Image *img) {
+	vkhelper2_barrier_transfer(cbuf,
+		VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, img);
+}
+
+void vkhelper2_barrier_dst(VkCommandBuffer cbuf, Vkhelper2Image *img) {
+	vkhelper2_barrier_transfer(cbuf,
+		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, img);
+}
+
+void vkhelper2_barrier_shader(VkCommandBuffer cbuf, Vkhelper2Image *img) {
+	vkhelper2_barrier(cbuf, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+		VK_PIPELINE_STAGE_TRANSFER_BIT,
+		VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
+		img);
+}
