@@ -151,8 +151,9 @@ void vkhelper2_pipeline_build(
 void vkhelper2_pipeline_config_deinit(
 	Vkhelper2PipelineConfig *vpc, VkDevice device);
 void vkhelper2_pipeline_simple_shader(Vkhelper2PipelineConfig *vpc,
-	VkDevice device,
-	char *src, char *relative);
+	VkDevice device, char *src, char *relative);
+void vkhelper2_pipeline_simple_shader2(Vkhelper2PipelineConfig *vpc,
+	VkDevice device, char *src, char *vert, char *frag);
 
 typedef struct {
 	VkRenderPassCreateInfo info;

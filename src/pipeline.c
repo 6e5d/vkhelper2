@@ -131,8 +131,7 @@ void vkhelper2_pipeline_config(Vkhelper2PipelineConfig *vpc,
 }
 
 void vkhelper2_pipeline_simple_shader(Vkhelper2PipelineConfig *vpc,
-	VkDevice device,
-	char *src, char *relative
+	VkDevice device, char *src, char *relative
 ) {
 	char path[VKHELPER_PATH_LEN];
 	char *new = NULL;
@@ -141,6 +140,17 @@ void vkhelper2_pipeline_simple_shader(Vkhelper2PipelineConfig *vpc,
 	vpc->stages[0].module = vkhelper2_shader_module(device, new);
 	snprintf(path, VKHELPER_PATH_LEN, "%s_frag.spv", relative);
 	ppath_rel(&new, src, path);
+	vpc->stages[1].module = vkhelper2_shader_module(device, new);
+	free(new);
+}
+
+void vkhelper2_pipeline_simple_shader2(Vkhelper2PipelineConfig *vpc,
+	VkDevice device, char *src, char *vert, char *frag
+) {
+	char *new = NULL;
+	ppath_rel(&new, src, vert);
+	vpc->stages[0].module = vkhelper2_shader_module(device, new);
+	ppath_rel(&new, src, frag);
 	vpc->stages[1].module = vkhelper2_shader_module(device, new);
 	free(new);
 }

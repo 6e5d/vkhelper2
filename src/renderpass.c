@@ -119,7 +119,7 @@ void vkhelper2_renderpass_begin_clear(VkCommandBuffer cbuf,
 	uint32_t width, uint32_t height
 ) {
 	static const VkClearValue clear_color = {
-		.color.float32 = {0.0f, 0.0f, 0.0f, 1.0f},
+		.color.float32 = {0.0f, 0.0f, 0.0f, 0.0f},
 	};
 	static const VkClearValue clear_depthstencil = {
 		.depthStencil.depth = 1.0f,
