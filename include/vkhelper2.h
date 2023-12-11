@@ -20,6 +20,7 @@ void vkhelper2_barrier(VkCommandBuffer cbuf,
 void vkhelper2_barrier_src(VkCommandBuffer cbuf, Vkhelper2Image *img);
 void vkhelper2_barrier_dst(VkCommandBuffer cbuf, Vkhelper2Image *img);
 void vkhelper2_barrier_shader(VkCommandBuffer cbuf, Vkhelper2Image *img);
+void vkhelper2_barrier_attach(VkCommandBuffer cbuf, Vkhelper2Image *img);
 
 typedef struct {
 	VkDeviceMemory memory;

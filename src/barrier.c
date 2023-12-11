@@ -53,3 +53,10 @@ void vkhelper2_barrier_shader(VkCommandBuffer cbuf, Vkhelper2Image *img) {
 		VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
 		img);
 }
+
+void vkhelper2_barrier_attach(VkCommandBuffer cbuf, Vkhelper2Image *img) {
+	vkhelper2_barrier(cbuf, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+		VK_PIPELINE_STAGE_TRANSFER_BIT,
+		VK_PIPELINE_STAGE_TRANSFER_BIT,
+		img);
+}
