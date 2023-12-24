@@ -1,6 +1,6 @@
 #include <vulkan/vulkan.h>
 
-#include "../../wholefile/include/wholefile.h"
+#include "../../wholefile/build/wholefile.h"
 #include "../include/vkhelper2.h"
 
 VkShaderModule vkhelper2_shader_module(
@@ -8,7 +8,7 @@ VkShaderModule vkhelper2_shader_module(
 	char *path
 ) {
 	uint32_t *data;
-	size_t len = wholefile_read(path, (uint8_t**)&data);
+	size_t len = com_6e5d_wholefile_read(path, (uint8_t**)&data);
 	if (len % 4 != 0) {
 		printf("bad spv shader code!\n");
 		abort();

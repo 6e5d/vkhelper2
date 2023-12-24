@@ -1,6 +1,6 @@
 #include <vulkan/vulkan.h>
 
-#include "../../ppath/include/ppath.h"
+#include "../../ppath/build/ppath.h"
 #include "../include/vkhelper2.h"
 
 #define VKHELPER_PATH_LEN 1024
@@ -136,10 +136,10 @@ void vkhelper2_pipeline_simple_shader(Vkhelper2PipelineConfig *vpc,
 	char path[VKHELPER_PATH_LEN];
 	char *new = NULL;
 	snprintf(path, VKHELPER_PATH_LEN, "../%s_vert.spv", relative);
-	ppath_rel(&new, src, path);
+	com_6e5d_ppath_rel(&new, src, path);
 	vpc->stages[0].module = vkhelper2_shader_module(device, new);
 	snprintf(path, VKHELPER_PATH_LEN, "../%s_frag.spv", relative);
-	ppath_rel(&new, src, path);
+	com_6e5d_ppath_rel(&new, src, path);
 	vpc->stages[1].module = vkhelper2_shader_module(device, new);
 	free(new);
 }
@@ -150,10 +150,10 @@ void vkhelper2_pipeline_simple_shader2(Vkhelper2PipelineConfig *vpc,
 	char *new = NULL;
 	char path[VKHELPER_PATH_LEN];
 	snprintf(path, VKHELPER_PATH_LEN, "../%s", vert);
-	ppath_rel(&new, src, path);
+	com_6e5d_ppath_rel(&new, src, path);
 	vpc->stages[0].module = vkhelper2_shader_module(device, new);
 	snprintf(path, VKHELPER_PATH_LEN, "../%s", frag);
-	ppath_rel(&new, src, path);
+	com_6e5d_ppath_rel(&new, src, path);
 	vpc->stages[1].module = vkhelper2_shader_module(device, new);
 	free(new);
 }
