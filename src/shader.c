@@ -3,7 +3,7 @@
 #include "../../wholefile/build/wholefile.h"
 #include "../include/vkhelper2.h"
 
-VkShaderModule vkhelper2_shader_module(
+VkShaderModule vkhelper2(shader_module)(
 	VkDevice device,
 	char *path
 ) {

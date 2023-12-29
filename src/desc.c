@@ -2,7 +2,7 @@
 
 #include "../include/vkhelper2.h"
 
-void vkhelper2_desc_write_image(
+void vkhelper2(desc_write_image)(
 	VkWriteDescriptorSet *write,
 	VkDescriptorImageInfo *info,
 	VkDescriptorSet set,
@@ -25,7 +25,7 @@ void vkhelper2_desc_write_image(
 	};
 }
 
-void vkhelper2_desc_config(Vkhelper2DescConfig *conf, uint32_t bcount) {
+void vkhelper2(desc_config)(Vkhelper2(DescConfig) *conf, uint32_t bcount) {
 	assert(bcount > 0);
 	// 1 layout
 	conf->bindings = malloc(bcount * sizeof(VkDescriptorSetLayoutBinding));
@@ -65,9 +65,9 @@ void vkhelper2_desc_config(Vkhelper2DescConfig *conf, uint32_t bcount) {
 	};
 }
 
-void vkhelper2_desc_build(
-	Vkhelper2Desc *desc,
-	Vkhelper2DescConfig *conf,
+void vkhelper2(desc_build)(
+	Vkhelper2(Desc) *desc,
+	Vkhelper2(DescConfig) *conf,
 	VkDevice device
 ) {
 	assert(0 == vkCreateDescriptorSetLayout(
@@ -80,12 +80,12 @@ void vkhelper2_desc_build(
 		device, &conf->allocinfo, &desc->set));
 }
 
-void vkhelper2_desc_deinit(Vkhelper2Desc *desc, VkDevice device) {
+void vkhelper2(desc_deinit)(Vkhelper2(Desc) *desc, VkDevice device) {
 	vkDestroyDescriptorSetLayout(device, desc->layout, NULL);
 	vkDestroyDescriptorPool(device, desc->pool, NULL);
 }
 
-void vkhelper2_desc_config_image(Vkhelper2DescConfig *conf, size_t idx) {
+void vkhelper2(desc_config_image)(Vkhelper2(DescConfig) *conf, size_t idx) {
 	conf->bindings[idx] = (VkDescriptorSetLayoutBinding) {
 		.binding = (uint32_t)idx,
 		.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
@@ -98,7 +98,7 @@ void vkhelper2_desc_config_image(Vkhelper2DescConfig *conf, size_t idx) {
 	};
 }
 
-void vkhelper2_desc_config_deinit(Vkhelper2DescConfig *conf) {
+void vkhelper2(desc_config_deinit)(Vkhelper2(DescConfig) *conf) {
 	free(conf->bindings);
 	free(conf->sizes);
 }

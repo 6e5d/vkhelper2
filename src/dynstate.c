@@ -2,7 +2,7 @@
 
 #include "../include/vkhelper2.h"
 
-void vkhelper2_dynstate_vs(VkCommandBuffer cbuf,
+void vkhelper2(dynstate_vs)(VkCommandBuffer cbuf,
 	uint32_t width, uint32_t height
 ) {
 	VkViewport viewport = {0.0f, 0.0f,

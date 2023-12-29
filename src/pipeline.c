@@ -5,7 +5,7 @@
 
 #define VKHELPER_PATH_LEN 1024
 
-void vkhelper2_pipeline_config(Vkhelper2PipelineConfig *vpc,
+void vkhelper2(pipeline_config)(Vkhelper2(PipelineConfig) *vpc,
 	uint32_t vbc, uint32_t vac, uint32_t sets) {
 	vpc->desc = malloc((size_t)sets * sizeof(VkDescriptorSetLayout));
 	vpc->plci = (VkPipelineLayoutCreateInfo) {
@@ -86,10 +86,7 @@ void vkhelper2_pipeline_config(Vkhelper2PipelineConfig *vpc,
 		.logicOp = VK_LOGIC_OP_COPY,
 		.pAttachments = &vpc->cba,
 		.attachmentCount = 1,
-		.blendConstants[0] = 0.0f,
-		.blendConstants[1] = 0.0f,
-		.blendConstants[2] = 0.0f,
-		.blendConstants[3] = 0.0f,
+		.blendConstants = {0.0f, 0.0f, 0.0f, 0.0f},
 	};
 
 	vpc->dss = (VkPipelineDepthStencilStateCreateInfo) {
@@ -98,13 +95,17 @@ void vkhelper2_pipeline_config(Vkhelper2PipelineConfig *vpc,
 		.depthWriteEnable = VK_TRUE,
 		.depthCompareOp = VK_COMPARE_OP_LESS_OR_EQUAL,
 		.depthBoundsTestEnable = VK_FALSE,
-		.back.failOp = VK_STENCIL_OP_KEEP,
-		.back.passOp = VK_STENCIL_OP_KEEP,
-		.back.compareOp = VK_COMPARE_OP_ALWAYS,
+		.back = {
+			.failOp = VK_STENCIL_OP_KEEP,
+			.passOp = VK_STENCIL_OP_KEEP,
+			.compareOp = VK_COMPARE_OP_ALWAYS,
+		},
 		.stencilTestEnable = VK_FALSE,
-		.front.failOp = VK_STENCIL_OP_KEEP,
-		.front.passOp = VK_STENCIL_OP_KEEP,
-		.front.compareOp = VK_COMPARE_OP_ALWAYS,
+		.front = {
+			.failOp = VK_STENCIL_OP_KEEP,
+			.passOp = VK_STENCIL_OP_KEEP,
+			.compareOp = VK_COMPARE_OP_ALWAYS,
+		},
 	};
 
 	vpc->dy[0] = VK_DYNAMIC_STATE_VIEWPORT;
@@ -130,38 +131,38 @@ void vkhelper2_pipeline_config(Vkhelper2PipelineConfig *vpc,
 	};
 }
 
-void vkhelper2_pipeline_simple_shader(Vkhelper2PipelineConfig *vpc,
+void vkhelper2(pipeline_simple_shader)(Vkhelper2(PipelineConfig) *vpc,
 	VkDevice device, char *src, char *relative
 ) {
 	char path[VKHELPER_PATH_LEN];
 	char *new = NULL;
 	snprintf(path, VKHELPER_PATH_LEN, "../%s_vert.spv", relative);
 	com_6e5d_ppath_rel(&new, src, path);
-	vpc->stages[0].module = vkhelper2_shader_module(device, new);
+	vpc->stages[0].module = vkhelper2(shader_module)(device, new);
 	snprintf(path, VKHELPER_PATH_LEN, "../%s_frag.spv", relative);
 	com_6e5d_ppath_rel(&new, src, path);
-	vpc->stages[1].module = vkhelper2_shader_module(device, new);
+	vpc->stages[1].module = vkhelper2(shader_module)(device, new);
 	free(new);
 }
 
-void vkhelper2_pipeline_simple_shader2(Vkhelper2PipelineConfig *vpc,
+void vkhelper2(pipeline_simple_shader2)(Vkhelper2(PipelineConfig) *vpc,
 	VkDevice device, char *src, char *vert, char *frag
 ) {
 	char *new = NULL;
 	char path[VKHELPER_PATH_LEN];
 	snprintf(path, VKHELPER_PATH_LEN, "../%s", vert);
 	com_6e5d_ppath_rel(&new, src, path);
-	vpc->stages[0].module = vkhelper2_shader_module(device, new);
+	vpc->stages[0].module = vkhelper2(shader_module)(device, new);
 	snprintf(path, VKHELPER_PATH_LEN, "../%s", frag);
 	com_6e5d_ppath_rel(&new, src, path);
-	vpc->stages[1].module = vkhelper2_shader_module(device, new);
+	vpc->stages[1].module = vkhelper2(shader_module)(device, new);
 	free(new);
 }
 
-void vkhelper2_pipeline_build(
+void vkhelper2(pipeline_build)(
 	VkPipelineLayout *layout,
 	VkPipeline *ppl,
-	Vkhelper2PipelineConfig *vpc,
+	Vkhelper2(PipelineConfig) *vpc,
 	VkRenderPass renderpass,
 	VkDevice device,
 	uint32_t subpass
@@ -177,8 +178,8 @@ void vkhelper2_pipeline_build(
 		device, VK_NULL_HANDLE, 1, &vpc->pci, NULL, ppl));
 }
 
-void vkhelper2_pipeline_config_deinit(
-	Vkhelper2PipelineConfig *vpc, VkDevice device) {
+void vkhelper2(pipeline_config_deinit)(
+	Vkhelper2(PipelineConfig) *vpc, VkDevice device) {
 	free(vpc->via);
 	free(vpc->vib);
 	free(vpc->desc);

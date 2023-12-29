@@ -3,8 +3,8 @@
 #include "../include/vkhelper2.h"
 
 // render buffer
-void vkhelper2_buffer_init_cpu(
-	Vkhelper2Buffer *buffer,
+void vkhelper2(buffer_init_cpu)(
+	Vkhelper2(Buffer) *buffer,
 	VkDeviceSize size,
 	VkDevice device,
 	VkPhysicalDeviceMemoryProperties memprop
@@ -22,7 +22,7 @@ void vkhelper2_buffer_init_cpu(
 	// memory
 	VkMemoryRequirements reqs;
 	vkGetBufferMemoryRequirements(device, buffer->buffer, &reqs);
-	uint32_t mti = vkhelper2_memory_type_index(
+	uint32_t mti = vkhelper2(memory_type_index)(
 		memprop,
 		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
 			VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -39,8 +39,8 @@ void vkhelper2_buffer_init_cpu(
 		device, buffer->buffer, buffer->memory, 0));
 }
 
-void vkhelper2_buffer_init_gpu(
-	Vkhelper2Buffer *buffer,
+void vkhelper2(buffer_init_gpu)(
+	Vkhelper2(Buffer) *buffer,
 	VkDeviceSize size,
 	VkBufferUsageFlags flags,
 	VkDevice device,
@@ -56,7 +56,7 @@ void vkhelper2_buffer_init_gpu(
 		device, &info, NULL, &buffer->buffer));
 	VkMemoryRequirements reqs;
 	vkGetBufferMemoryRequirements(device, buffer->buffer, &reqs);
-	uint32_t mti = vkhelper2_memory_type_index(
+	uint32_t mti = vkhelper2(memory_type_index)(
 		memprop,
 		VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
 		reqs.memoryTypeBits
@@ -72,8 +72,8 @@ void vkhelper2_buffer_init_gpu(
 		device, buffer->buffer, buffer->memory, 0));
 }
 
-void vkhelper2_buffer_deinit(
-	Vkhelper2Buffer *buffer,
+void vkhelper2(buffer_deinit)(
+	Vkhelper2(Buffer) *buffer,
 	VkDevice device
 ) {
 	vkDestroyBuffer(device, buffer->buffer, NULL);

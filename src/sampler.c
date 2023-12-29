@@ -2,7 +2,7 @@
 
 #include "../include/vkhelper2.h"
 
-VkSampler vkhelper2_sampler(VkDevice device) {
+VkSampler vkhelper2(sampler)(VkDevice device) {
 	VkSampler sampler;
 	VkSamplerCreateInfo sampler_info = {
 		.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO,

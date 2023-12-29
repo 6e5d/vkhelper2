@@ -2,8 +2,8 @@
 
 #include "../include/vkhelper2.h"
 
-void vkhelper2_renderpass_config_offscreen(
-	Vkhelper2RenderpassConfig *conf
+void vkhelper2(renderpass_config_offscreen)(
+	Vkhelper2(RenderpassConfig) *conf
 ) {
 	VkAttachmentDescription attach_color = {
 		.format = VK_FORMAT_B8G8R8A8_UNORM,
@@ -36,8 +36,8 @@ void vkhelper2_renderpass_config_offscreen(
 	};
 }
 
-void vkhelper2_renderpass_config(
-	Vkhelper2RenderpassConfig *conf,
+void vkhelper2(renderpass_config)(
+	Vkhelper2(RenderpassConfig) *conf,
 	VkFormat format,
 	VkFormat depth_format
 ) {
@@ -92,14 +92,14 @@ void vkhelper2_renderpass_config(
 	};
 }
 
-void vkhelper2_renderpass_build(
+void vkhelper2(renderpass_build)(
 	VkRenderPass *result,
-	Vkhelper2RenderpassConfig *conf,
+	Vkhelper2(RenderpassConfig) *conf,
 	VkDevice device) {
 	assert(0 == vkCreateRenderPass(device, &conf->info, NULL, result));
 }
 
-void vkhelper2_renderpass_begin(VkCommandBuffer cbuf,
+void vkhelper2(renderpass_begin)(VkCommandBuffer cbuf,
 	VkRenderPass rp,
 	VkFramebuffer fb,
 	uint32_t width, uint32_t height
@@ -108,30 +108,42 @@ void vkhelper2_renderpass_begin(VkCommandBuffer cbuf,
 		.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
 		.renderPass = rp,
 		.framebuffer = fb,
-		.renderArea.extent.width = width,
-		.renderArea.extent.height = height,
+		.renderArea = {
+			.extent = {
+				.width = width,
+				.height = height,
+			},
+		},
 	};
 	vkCmdBeginRenderPass(cbuf, &rbegin, VK_SUBPASS_CONTENTS_INLINE);
 }
 
-void vkhelper2_renderpass_begin_clear(VkCommandBuffer cbuf,
+void vkhelper2(renderpass_begin_clear)(VkCommandBuffer cbuf,
 	VkRenderPass rp, VkFramebuffer fb,
 	uint32_t width, uint32_t height
 ) {
-	static const VkClearValue clear_color = {
-		.color.float32 = {0.0f, 0.0f, 0.0f, 0.0f},
+	VkClearValue clear_color = {
+		.color = {
+			.float32 = {0.0f, 0.0f, 0.0f, 0.0f},
+		},
 	};
-	static const VkClearValue clear_depthstencil = {
-		.depthStencil.depth = 1.0f,
-		.depthStencil.stencil = 0,
+	VkClearValue clear_depthstencil = {
+		.depthStencil = {
+			.depth = 1.0f,
+			.stencil = 0,
+		},
 	};
 	VkClearValue clears[2] = {clear_color, clear_depthstencil};
 	VkRenderPassBeginInfo rbegin = {
 		.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
 		.renderPass = rp,
 		.framebuffer = fb,
-		.renderArea.extent.width = width,
-		.renderArea.extent.height = height,
+		.renderArea = {
+			.extent = {
+				.width = width,
+				.height = height,
+			},
+		},
 		.clearValueCount = 2,
 		.pClearValues = clears,
 	};

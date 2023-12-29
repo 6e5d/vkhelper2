@@ -3,7 +3,7 @@
 
 #include "../include/vkhelper2.h"
 
-void vkhelper2_image_create_imageview(
+void vkhelper2(image_create_imageview)(
 	VkImageView *output,
 	VkDevice device,
 	VkImage image,
@@ -33,8 +33,8 @@ void vkhelper2_image_create_imageview(
 	));
 }
 
-void vkhelper2_image_new(
-	Vkhelper2Image *output,
+void vkhelper2(image_new)(
+	Vkhelper2(Image) *output,
 	VkDevice device,
 	VkPhysicalDeviceMemoryProperties memprop,
 	uint32_t width,
@@ -86,7 +86,7 @@ void vkhelper2_image_new(
 	VkMemoryAllocateInfo alloc = {
 		.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO,
 		.allocationSize = reqs.size,
-		.memoryTypeIndex = vkhelper2_memory_type_index(
+		.memoryTypeIndex = vkhelper2(memory_type_index)(
 			memprop,
 			VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
 			reqs.memoryTypeBits
@@ -99,7 +99,7 @@ void vkhelper2_image_new(
 		output->memory,
 		0));
 
-	vkhelper2_image_create_imageview(
+	vkhelper2(image_create_imageview)(
 		&output->imageview,
 		device,
 		output->image,
@@ -108,8 +108,8 @@ void vkhelper2_image_new(
 		output->mip
 	);
 }
-void vkhelper2_image_new_color(
-	Vkhelper2Image *output,
+void vkhelper2(image_new_color)(
+	Vkhelper2(Image) *output,
 	VkDevice device,
 	VkPhysicalDeviceMemoryProperties memprop,
 	uint32_t width,
@@ -117,7 +117,7 @@ void vkhelper2_image_new_color(
 	bool mip,
 	VkImageUsageFlags usage
 ) {
-	vkhelper2_image_new(
+	vkhelper2(image_new)(
 		output,
 		device,
 		memprop,
@@ -129,8 +129,8 @@ void vkhelper2_image_new_color(
 		VK_IMAGE_ASPECT_COLOR_BIT);
 }
 
-void vkhelper2_image_new_depthstencil(
-	Vkhelper2Image *output,
+void vkhelper2(image_new_depthstencil)(
+	Vkhelper2(Image) *output,
 	VkDevice device,
 	VkPhysicalDeviceMemoryProperties memprop,
 	uint32_t width,
@@ -138,7 +138,7 @@ void vkhelper2_image_new_depthstencil(
 	VkFormat format,
 	VkImageUsageFlags usage
 ) {
-	vkhelper2_image_new(
+	vkhelper2(image_new)(
 		output,
 		device,
 		memprop,
@@ -151,7 +151,7 @@ void vkhelper2_image_new_depthstencil(
 	);
 }
 
-void vkhelper2_image_deinit(Vkhelper2Image *image, VkDevice device) {
+void vkhelper2(image_deinit)(Vkhelper2(Image) *image, VkDevice device) {
 	vkDestroyImageView(device, image->imageview, NULL);
 	vkFreeMemory(device, image->memory, NULL);
 	vkDestroyImage(device, image->image, NULL);

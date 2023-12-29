@@ -2,11 +2,11 @@
 
 #include "../include/vkhelper2.h"
 
-void vkhelper2_barrier(VkCommandBuffer cbuf,
+void vkhelper2(barrier)(VkCommandBuffer cbuf,
 	VkImageLayout new_layout,
 	VkPipelineStageFlags src_stage,
 	VkPipelineStageFlags dst_stage,
-	Vkhelper2Image *image
+	Vkhelper2(Image) *image
 ) {
 	VkImageLayout old_layout = image->layout;
 	if (old_layout == new_layout) { return; }
@@ -28,34 +28,34 @@ void vkhelper2_barrier(VkCommandBuffer cbuf,
 }
 
 // transfer barrier
-static void vkhelper2_barrier_transfer(VkCommandBuffer cbuf,
-	VkImageLayout layout, Vkhelper2Image *img
+static void vkhelper2(barrier_transfer)(VkCommandBuffer cbuf,
+	VkImageLayout layout, Vkhelper2(Image) *img
 ) {
-	vkhelper2_barrier(cbuf, layout,
+	vkhelper2(barrier)(cbuf, layout,
 		VK_PIPELINE_STAGE_TRANSFER_BIT,
 		VK_PIPELINE_STAGE_TRANSFER_BIT,
 		img);
 }
 
-void vkhelper2_barrier_src(VkCommandBuffer cbuf, Vkhelper2Image *img) {
-	vkhelper2_barrier_transfer(cbuf,
+void vkhelper2(barrier_src)(VkCommandBuffer cbuf, Vkhelper2(Image) *img) {
+	vkhelper2(barrier_transfer)(cbuf,
 		VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, img);
 }
 
-void vkhelper2_barrier_dst(VkCommandBuffer cbuf, Vkhelper2Image *img) {
-	vkhelper2_barrier_transfer(cbuf,
+void vkhelper2(barrier_dst)(VkCommandBuffer cbuf, Vkhelper2(Image) *img) {
+	vkhelper2(barrier_transfer)(cbuf,
 		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, img);
 }
 
-void vkhelper2_barrier_shader(VkCommandBuffer cbuf, Vkhelper2Image *img) {
-	vkhelper2_barrier(cbuf, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+void vkhelper2(barrier_shader)(VkCommandBuffer cbuf, Vkhelper2(Image) *img) {
+	vkhelper2(barrier)(cbuf, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
 		VK_PIPELINE_STAGE_TRANSFER_BIT,
 		VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
 		img);
 }
 
-void vkhelper2_barrier_attach(VkCommandBuffer cbuf, Vkhelper2Image *img) {
-	vkhelper2_barrier(cbuf, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+void vkhelper2(barrier_attach)(VkCommandBuffer cbuf, Vkhelper2(Image) *img) {
+	vkhelper2(barrier)(cbuf, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
 		VK_PIPELINE_STAGE_TRANSFER_BIT,
 		VK_PIPELINE_STAGE_TRANSFER_BIT,
 		img);
