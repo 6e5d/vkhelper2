@@ -3,7 +3,7 @@
 #include "../../ppath/build/ppath.h"
 #include "../include/vkhelper2.h"
 
-#define VKHELPER_PATH_LEN 1024
+#define path_len 1024
 
 void vkhelper2(pipeline_config)(Vkhelper2(PipelineConfig) *vpc,
 	uint32_t vbc, uint32_t vac, uint32_t sets) {
@@ -134,12 +134,12 @@ void vkhelper2(pipeline_config)(Vkhelper2(PipelineConfig) *vpc,
 void vkhelper2(pipeline_simple_shader)(Vkhelper2(PipelineConfig) *vpc,
 	VkDevice device, char *src, char *relative
 ) {
-	char path[VKHELPER_PATH_LEN];
+	char path[path_len];
 	char *new = NULL;
-	snprintf(path, VKHELPER_PATH_LEN, "../%s_vert.spv", relative);
+	snprintf(path, path_len, "../%s_vert.spv", relative);
 	com_6e5d_ppath_rel(&new, src, path);
 	vpc->stages[0].module = vkhelper2(shader_module)(device, new);
-	snprintf(path, VKHELPER_PATH_LEN, "../%s_frag.spv", relative);
+	snprintf(path, path_len, "../%s_frag.spv", relative);
 	com_6e5d_ppath_rel(&new, src, path);
 	vpc->stages[1].module = vkhelper2(shader_module)(device, new);
 	free(new);
@@ -149,11 +149,11 @@ void vkhelper2(pipeline_simple_shader2)(Vkhelper2(PipelineConfig) *vpc,
 	VkDevice device, char *src, char *vert, char *frag
 ) {
 	char *new = NULL;
-	char path[VKHELPER_PATH_LEN];
-	snprintf(path, VKHELPER_PATH_LEN, "../%s", vert);
+	char path[path_len];
+	snprintf(path, path_len, "../%s", vert);
 	com_6e5d_ppath_rel(&new, src, path);
 	vpc->stages[0].module = vkhelper2(shader_module)(device, new);
-	snprintf(path, VKHELPER_PATH_LEN, "../%s", frag);
+	snprintf(path, path_len, "../%s", frag);
 	com_6e5d_ppath_rel(&new, src, path);
 	vpc->stages[1].module = vkhelper2(shader_module)(device, new);
 	free(new);

@@ -1,6 +1,3 @@
-#ifndef INCLUDEGUARD_VKHELPER2
-#define INCLUDEGUARD_VKHELPER2
-
 #include <vulkan/vulkan.h>
 typedef struct {
 	VkDeviceMemory memory;
@@ -189,5 +186,3 @@ VkShaderModule vkhelper2(shader_module)(
 	VkDevice device,
 	char *path
 );
-
-#endif
